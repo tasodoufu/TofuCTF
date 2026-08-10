@@ -17,3 +17,9 @@ CREATE TABLE IF NOT EXISTS solves (
 );
 
 CREATE INDEX IF NOT EXISTS solves_by_user ON solves(google_sub, solved_at);
+
+CREATE TABLE IF NOT EXISTS challenge_flags (
+  challenge_id TEXT PRIMARY KEY,
+  flag_hash TEXT NOT NULL,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

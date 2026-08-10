@@ -1,17 +1,14 @@
 Warm Tofu / TofuCTF
 ====================
 
-Requirements: Docker, netcat
+Requirements: netcat
 
-1. Sign in to TofuCTF and click "Copy launch token" for Warm Tofu.
+1. Analyze the included `warm-tofu` binary.
 
-2. Start the service and paste the token when prompted:
-     ./run.sh
+2. Connect to the public service:
+     nc tofuctf.tailc3d416.ts.net 10000
 
-3. In another terminal, connect:
-     nc localhost 31337
+3. Retrieve the flag and submit it on TofuCTF.
 
-4. Analyze `warm-tofu`, retrieve the flag, and submit it on TofuCTF.
-
-Stop with Ctrl-C. The account-specific flag is fetched only inside the
-container. The launch token expires after 15 minutes and is not itself a flag.
+Google login is optional. Without login, solved progress is stored in the
+current browser; with login, it is also synced to the account.
