@@ -1,0 +1,7 @@
+name = "tofuctf-auth"
+main = "src/index.js"
+compatibility_date = "2026-08-10"
+
+[vars]
+ALLOWED_ORIGIN = "https://tasodoufu.github.io"
+GOOGLE_CLIENT_ID = "295052813485-8f1rbhmc0gnek9uqh2l4dj9orsk2deni.apps.googleusercontent.com"

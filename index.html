@@ -17,6 +17,7 @@
     <a class="brand" href="#top" aria-label="TofuCTF home"><span class="logo">豆</span>TofuCTF</a>
     <nav><a href="#challenges">Today</a><a href="#calendar">Calendar</a><a href="#how">How it works</a></nav>
     <span class="status"><i></i> new bite / 05:00 JST</span>
+    <div id="authBox" class="auth-box" aria-live="polite"><span class="auth-loading">LOGIN</span></div>
   </header>
 
   <main id="top">
@@ -65,6 +66,8 @@
   <dialog id="challengeDialog" class="challenge-dialog"><form method="dialog"><button class="close" value="cancel" aria-label="閉じる">×</button><span class="kicker" id="challengeDialogKicker"></span><h2 id="challengeDialogTitle"></h2><p id="challengeDialogDescription"></p><div class="modal-meta" id="challengeDialogMeta"></div><div class="modal-actions"><a class="button primary" id="challengeDialogDownload" download>Download challenge ↓</a><button class="button ghost" id="challengeDialogSubmit" type="button">Submit flag</button></div></form></dialog>
   <dialog id="focusDialog"><form method="dialog"><button class="close" value="cancel">×</button><span class="kicker">15 MINUTE MODE</span><h2>今日はここだけ。</h2><ol class="micro-steps"><li>問題をダウンロード</li><li><code>./run.sh</code> を実行</li><li><code>checksec</code> と一度だけ接続</li></ol><p>15分で止めても成功。続けたくなったら、そのとき続けよう。</p><button class="button primary submit" value="cancel">始める</button></form></dialog>
   <footer class="shell">TofuCTF <span>pwn, one bite harder.</span></footer>
+  <script src="auth.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleAuth()"></script>
   <script src="app.js"></script>
 </body>
 </html>
