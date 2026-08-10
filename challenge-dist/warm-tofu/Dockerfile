@@ -1,8 +1,7 @@
 FROM debian:bookworm-slim
-RUN apt-get update && apt-get install -y --no-install-recommends socat && rm -rf /var/lib/apt/lists/* && useradd -m ctf
+RUN apt-get update && apt-get install -y --no-install-recommends gosu socat && rm -rf /var/lib/apt/lists/* && useradd -m ctf
 COPY warm-tofu /home/ctf/warm-tofu
-RUN chown root:root /home/ctf/warm-tofu && chmod 755 /home/ctf/warm-tofu
-USER ctf
+COPY entrypoint.sh /entrypoint.sh
+RUN chown root:root /home/ctf/warm-tofu /entrypoint.sh && chmod 755 /home/ctf/warm-tofu /entrypoint.sh
 EXPOSE 31337
-CMD ["socat", "TCP-LISTEN:31337,reuseaddr,fork", "EXEC:/home/ctf/warm-tofu,stderr"]
-
+ENTRYPOINT ["/entrypoint.sh"]
