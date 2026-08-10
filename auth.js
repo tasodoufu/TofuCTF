@@ -6,8 +6,11 @@ const TOFU_AUTH = {
 const authBox = document.getElementById('authBox');
 let authCredential = sessionStorage.getItem('tofuctf:googleCredential') || '';
 let authUser = null;
+let profileAbort = new AbortController();
 
 function showGoogleButton() {
+  profileAbort.abort();
+  profileAbort = new AbortController();
   authBox.replaceChildren();
   const target = document.createElement('div');
   authBox.append(target);
@@ -18,25 +21,77 @@ function showGoogleButton() {
 }
 
 function showUser(user) {
+  profileAbort.abort();
+  profileAbort = new AbortController();
   authBox.replaceChildren();
-  const chip = document.createElement('div');
-  chip.className = 'user-chip';
+  const profile = document.createElement('div');
+  profile.className = 'user-profile';
+
+  const trigger = document.createElement('button');
+  trigger.type = 'button';
+  trigger.className = 'avatar-button';
+  trigger.setAttribute('aria-label', 'アカウントメニューを開く');
+  trigger.setAttribute('aria-haspopup', 'menu');
+  trigger.setAttribute('aria-expanded', 'false');
   if (user.picture && /^https:\/\//.test(user.picture)) {
     const avatar = document.createElement('img');
     avatar.src = user.picture;
-    avatar.alt = '';
+    avatar.alt = `${user.name}のプロフィール画像`;
     avatar.referrerPolicy = 'no-referrer';
-    chip.append(avatar);
+    trigger.append(avatar);
+  } else {
+    const fallback = document.createElement('span');
+    fallback.className = 'avatar-fallback';
+    fallback.textContent = (user.name || '?').trim().charAt(0).toUpperCase();
+    trigger.append(fallback);
   }
+
+  const menu = document.createElement('div');
+  menu.className = 'account-menu';
+  menu.setAttribute('role', 'menu');
+  menu.hidden = true;
+
   const name = document.createElement('span');
+  name.className = 'account-name';
   name.textContent = user.name;
-  chip.append(name);
+  menu.append(name);
+
+  if (user.email) {
+    const email = document.createElement('span');
+    email.className = 'account-email';
+    email.textContent = user.email;
+    menu.append(email);
+  }
+
   const logout = document.createElement('button');
   logout.type = 'button';
-  logout.textContent = 'LOGOUT';
+  logout.className = 'account-logout';
+  logout.setAttribute('role', 'menuitem');
+  logout.textContent = 'ログアウト';
   logout.onclick = signOut;
-  chip.append(logout);
-  authBox.append(chip);
+  menu.append(logout);
+
+  const closeMenu = () => {
+    menu.hidden = true;
+    trigger.setAttribute('aria-expanded', 'false');
+  };
+  trigger.onclick = () => {
+    const willOpen = menu.hidden;
+    menu.hidden = !willOpen;
+    trigger.setAttribute('aria-expanded', String(willOpen));
+  };
+  profile.onkeydown = (event) => {
+    if (event.key === 'Escape') {
+      closeMenu();
+      trigger.focus();
+    }
+  };
+  document.addEventListener('click', (event) => {
+    if (!profile.contains(event.target)) closeMenu();
+  }, { signal: profileAbort.signal });
+
+  profile.append(trigger, menu);
+  authBox.append(profile);
 }
 
 async function verifyCredential(credential) {
