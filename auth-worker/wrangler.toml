@@ -5,3 +5,8 @@ compatibility_date = "2026-08-10"
 [vars]
 ALLOWED_ORIGIN = "https://tasodoufu.github.io"
 GOOGLE_CLIENT_ID = "295052813485-8f1rbhmc0gnek9uqh2l4dj9orsk2deni.apps.googleusercontent.com"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "tofuctf-progress"
+database_id = "9f59ff01-5a98-4437-af29-70cd22530459"
