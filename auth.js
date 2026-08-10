@@ -4,7 +4,14 @@ const TOFU_AUTH = {
 };
 
 const authBox = document.getElementById('authBox');
-let authCredential = sessionStorage.getItem('tofuctf:googleCredential') || '';
+const credentialKey = 'tofuctf:googleCredential';
+// Keep the short-lived Google credential across tabs/browser restarts. The
+// Worker verifies it again on every page load and rejects it after expiry.
+let authCredential = localStorage.getItem(credentialKey)
+  || sessionStorage.getItem(credentialKey)
+  || '';
+sessionStorage.removeItem(credentialKey);
+if (authCredential) localStorage.setItem(credentialKey, authCredential);
 let authUser = null;
 let profileAbort = new AbortController();
 
@@ -110,13 +117,13 @@ async function handleGoogleCredential(response) {
   try {
     authUser = await verifyCredential(response.credential);
     authCredential = response.credential;
-    sessionStorage.setItem('tofuctf:googleCredential', authCredential);
+    localStorage.setItem(credentialKey, authCredential);
     showUser(authUser);
     window.dispatchEvent(new CustomEvent('tofuctf:login', { detail: authUser }));
   } catch (error) {
     console.error(error);
     authCredential = '';
-    sessionStorage.removeItem('tofuctf:googleCredential');
+    localStorage.removeItem(credentialKey);
     showGoogleButton();
   }
 }
@@ -125,7 +132,7 @@ function signOut() {
   google.accounts.id.disableAutoSelect();
   authCredential = '';
   authUser = null;
-  sessionStorage.removeItem('tofuctf:googleCredential');
+  localStorage.removeItem(credentialKey);
   showGoogleButton();
   window.dispatchEvent(new Event('tofuctf:logout'));
 }
@@ -145,7 +152,7 @@ async function initGoogleAuth() {
       return;
     } catch {
       authCredential = '';
-      sessionStorage.removeItem('tofuctf:googleCredential');
+      localStorage.removeItem(credentialKey);
     }
   }
   showGoogleButton();
