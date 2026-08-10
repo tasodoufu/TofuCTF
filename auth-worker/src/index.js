@@ -66,6 +66,60 @@ function validChallengeIds(value) {
   return ids.every(id => typeof id === "string" && /^[a-z0-9][a-z0-9-]{0,63}$/.test(id)) ? ids : null;
 }
 
+const encoder = new TextEncoder();
+
+async function hmacHex(secret, message) {
+  const key = await crypto.subtle.importKey("raw", encoder.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const signature = await crypto.subtle.sign("HMAC", key, encoder.encode(message));
+  return [...new Uint8Array(signature)].map(byte => byte.toString(16).padStart(2, "0")).join("");
+}
+
+async function expectedFlag(userId, challengeId, env) {
+  const digest = await hmacHex(env.FLAG_SECRET, `flag:${userId}:${challengeId}`);
+  return `TofuCTF{${digest.slice(0, 32)}}`;
+}
+
+function safeEqual(left, right) {
+  if (typeof left !== "string" || left.length !== right.length) return false;
+  let difference = 0;
+  for (let index = 0; index < left.length; index += 1) difference |= left.charCodeAt(index) ^ right.charCodeAt(index);
+  return difference === 0;
+}
+
+function base64urlEncode(value) {
+  return btoa(value).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+function base64urlDecode(value) {
+  const padded = value.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((value.length + 3) % 4);
+  return atob(padded);
+}
+
+async function createLaunchToken(userId, challengeId, env) {
+  const payload = base64urlEncode(JSON.stringify({ sub: userId, challengeId, exp: Math.floor(Date.now() / 1000) + 900 }));
+  return `${payload}.${await hmacHex(env.FLAG_SECRET, `launch:${payload}`)}`;
+}
+
+async function parseLaunchToken(token, env) {
+  if (typeof token !== "string" || token.length > 2048) throw new Error("Invalid launch token");
+  const [payload, signature, extra] = token.split(".");
+  if (!payload || !signature || extra || !safeEqual(signature, await hmacHex(env.FLAG_SECRET, `launch:${payload}`))) {
+    throw new Error("Invalid launch token");
+  }
+  const data = JSON.parse(base64urlDecode(payload));
+  if (!data.sub || !/^[a-z0-9][a-z0-9-]{0,63}$/.test(data.challengeId || "") || Number(data.exp) <= Date.now() / 1000) {
+    throw new Error("Launch token expired or invalid");
+  }
+  return data;
+}
+
+async function progressFor(userId, env) {
+  const result = await env.DB.prepare(
+    "SELECT challenge_id, solved_at FROM solves WHERE google_sub = ? ORDER BY solved_at"
+  ).bind(userId).all();
+  return result.results.map(row => ({ id: row.challenge_id, solvedAt: row.solved_at }));
+}
+
 export default {
   async fetch(request, env) {
     const origin = allowedOrigin(request, env);
@@ -88,6 +142,18 @@ export default {
       return json({ ok: true, googleConfigured: env.GOOGLE_CLIENT_ID !== "not-configured" }, 200, origin || env.ALLOWED_ORIGIN);
     }
 
+    if (url.pathname === "/api/instance-flag" && request.method === "POST") {
+      try {
+        const token = (await request.text()).trim();
+        const launch = await parseLaunchToken(token, env);
+        return new Response(`${await expectedFlag(launch.sub, launch.challengeId, env)}\n`, {
+          headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store", "x-content-type-options": "nosniff" },
+        });
+      } catch (error) {
+        return new Response(`${error.message}\n`, { status: 401, headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" } });
+      }
+    }
+
     if (!origin) return json({ error: "Origin not allowed" }, 403, env.ALLOWED_ORIGIN);
 
     if (url.pathname === "/auth/google" && request.method === "POST") {
@@ -103,39 +169,67 @@ export default {
       }
     }
 
-    if (url.pathname === "/progress" && request.method === "GET") {
+    if ((url.pathname === "/api/progress" || url.pathname === "/progress") && request.method === "GET") {
       try {
         const user = await authenticatedUser(request, env);
         await saveUser(user, env);
-        const result = await env.DB.prepare(
-          "SELECT challenge_id, solved_at FROM solves WHERE google_sub = ? ORDER BY solved_at"
-        ).bind(user.id).all();
-        return json({ solved: result.results.map(row => ({ id: row.challenge_id, solvedAt: row.solved_at })) }, 200, origin);
+        return json({ solved: await progressFor(user.id, env) }, 200, origin);
       } catch (error) {
         return json({ error: error.message }, 401, origin);
       }
     }
 
-    if (url.pathname === "/progress/import" && request.method === "POST") {
+    if ((url.pathname === "/api/progress/import" || url.pathname === "/progress/import") && request.method === "POST") {
       try {
         const user = await authenticatedUser(request, env);
         const body = await request.json();
         const challengeIds = validChallengeIds(body.challengeIds);
         if (!challengeIds) return json({ error: "Invalid challenge IDs" }, 400, origin);
         await saveUser(user, env);
-        if (challengeIds.length) {
-          await env.DB.batch(challengeIds.map(id => env.DB.prepare(`
-            INSERT INTO solves (google_sub, challenge_id, source) VALUES (?, ?, 'local-import')
-            ON CONFLICT(google_sub, challenge_id) DO NOTHING
-          `).bind(user.id, id)));
+        const migration = await env.DB.prepare("SELECT local_migrated_at FROM users WHERE google_sub = ?").bind(user.id).first();
+        if (!migration.local_migrated_at) {
+          const statements = challengeIds.map(id => env.DB.prepare(`
+              INSERT INTO solves (google_sub, challenge_id, source) VALUES (?, ?, 'local-import')
+              ON CONFLICT(google_sub, challenge_id) DO NOTHING
+            `).bind(user.id, id));
+          statements.push(env.DB.prepare("UPDATE users SET local_migrated_at = CURRENT_TIMESTAMP WHERE google_sub = ?").bind(user.id));
+          await env.DB.batch(statements);
         }
-        const result = await env.DB.prepare(
-          "SELECT challenge_id, solved_at FROM solves WHERE google_sub = ? ORDER BY solved_at"
-        ).bind(user.id).all();
-        return json({ solved: result.results.map(row => ({ id: row.challenge_id, solvedAt: row.solved_at })) }, 200, origin);
+        return json({ solved: await progressFor(user.id, env), migrated: !migration.local_migrated_at }, 200, origin);
       } catch (error) {
         const status = error instanceof SyntaxError ? 400 : 401;
         return json({ error: error.message }, status, origin);
+      }
+    }
+
+    if (url.pathname === "/api/launch-token" && request.method === "POST") {
+      try {
+        const user = await authenticatedUser(request, env);
+        const { challengeId } = await request.json();
+        const ids = validChallengeIds([challengeId]);
+        if (!ids) return json({ error: "Invalid challenge ID" }, 400, origin);
+        await saveUser(user, env);
+        return json({ token: await createLaunchToken(user.id, challengeId, env), expiresIn: 900 }, 200, origin);
+      } catch (error) {
+        return json({ error: error.message }, error instanceof SyntaxError ? 400 : 401, origin);
+      }
+    }
+
+    if (url.pathname === "/api/submit" && request.method === "POST") {
+      try {
+        const user = await authenticatedUser(request, env);
+        const { challengeId, flag } = await request.json();
+        const ids = validChallengeIds([challengeId]);
+        if (!ids || typeof flag !== "string" || flag.length > 128) return json({ error: "Invalid submission" }, 400, origin);
+        if (!safeEqual(flag.trim(), await expectedFlag(user.id, challengeId, env))) return json({ correct: false }, 200, origin);
+        await saveUser(user, env);
+        await env.DB.prepare(`
+          INSERT INTO solves (google_sub, challenge_id, source) VALUES (?, ?, 'verified')
+          ON CONFLICT(google_sub, challenge_id) DO NOTHING
+        `).bind(user.id, challengeId).run();
+        return json({ correct: true, solved: await progressFor(user.id, env) }, 200, origin);
+      } catch (error) {
+        return json({ error: error.message }, error instanceof SyntaxError ? 400 : 401, origin);
       }
     }
 

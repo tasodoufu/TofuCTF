@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS users (
   google_sub TEXT PRIMARY KEY,
   email TEXT NOT NULL,
   name TEXT NOT NULL,
+  local_migrated_at TEXT,
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

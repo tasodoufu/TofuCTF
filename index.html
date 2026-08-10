@@ -56,14 +56,14 @@
         <li><span>02</span><div><h3>Launch</h3><p><code>./run.sh</code> で隔離コンテナを起動。flagは毎回ランダム生成。</p></div></li>
         <li><span>03</span><div><h3>Pwn</h3><p><code>nc localhost 31337</code> に接続し、バイナリを解析して奪取する。</p></div></li>
       </ol>
-      <p class="note">自分のPC上のflagは自分で読めてしまう。ここでは不正防止より、正しいexploitで取得する学習体験を優先しています。Pages上のSubmitは形式確認とブラウザ内の進捗記録のみです。</p>
+      <p class="note">ログイン後に起動トークンをコピーして <code>./run.sh</code> へ貼り付けます。flagはアカウントごとに異なり、Cloudflare Workerで本物の正解判定を行います。</p>
     </div></section>
   </main>
 
   <dialog id="flagDialog">
     <form method="dialog"><button class="close" value="cancel" aria-label="閉じる">×</button><span class="kicker" id="dialogKicker">TOFU CTF</span><h2>Submit flag</h2><p id="dialogTitle">exploitで取得したflagを入力。</p><input id="flagInput" autocomplete="off" placeholder="TofuCTF{...}" aria-label="Flag"><div id="flagMessage" role="status"></div><button class="button primary submit" id="submitFlag" type="button">判定する</button></form>
   </dialog>
-  <dialog id="challengeDialog" class="challenge-dialog"><form method="dialog"><button class="close" value="cancel" aria-label="閉じる">×</button><span class="kicker" id="challengeDialogKicker"></span><h2 id="challengeDialogTitle"></h2><p id="challengeDialogDescription"></p><div class="modal-meta" id="challengeDialogMeta"></div><div class="modal-actions"><a class="button primary" id="challengeDialogDownload" download>Download challenge ↓</a><button class="button ghost" id="challengeDialogSubmit" type="button">Submit flag</button></div></form></dialog>
+  <dialog id="challengeDialog" class="challenge-dialog"><form method="dialog"><button class="close" value="cancel" aria-label="閉じる">×</button><span class="kicker" id="challengeDialogKicker"></span><h2 id="challengeDialogTitle"></h2><p id="challengeDialogDescription"></p><div class="modal-meta" id="challengeDialogMeta"></div><div class="modal-actions"><a class="button primary" id="challengeDialogDownload" download>Download challenge ↓</a><button class="button ghost" id="challengeDialogLaunch" type="button">Copy launch token</button><button class="button ghost" id="challengeDialogSubmit" type="button">Submit flag</button></div></form></dialog>
   <dialog id="focusDialog"><form method="dialog"><button class="close" value="cancel">×</button><span class="kicker">15 MINUTE MODE</span><h2>今日はここだけ。</h2><ol class="micro-steps"><li>問題をダウンロード</li><li><code>./run.sh</code> を実行</li><li><code>checksec</code> と一度だけ接続</li></ol><p>15分で止めても成功。続けたくなったら、そのとき続けよう。</p><button class="button primary submit" value="cancel">始める</button></form></dialog>
   <footer class="shell">TofuCTF <span>pwn, one bite harder.</span></footer>
   <script src="auth.js"></script>
