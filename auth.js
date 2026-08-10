@@ -4,14 +4,13 @@ const TOFU_AUTH = {
 };
 
 const authBox = document.getElementById('authBox');
-const credentialKey = 'tofuctf:googleCredential';
-// Keep the short-lived Google credential across tabs/browser restarts. The
-// Worker verifies it again on every page load and rejects it after expiry.
-let authCredential = localStorage.getItem(credentialKey)
-  || sessionStorage.getItem(credentialKey)
-  || '';
-sessionStorage.removeItem(credentialKey);
-if (authCredential) localStorage.setItem(credentialKey, authCredential);
+const sessionKey = 'tofuctf:sessionToken';
+const legacyCredentialKey = 'tofuctf:googleCredential';
+// Google ID tokens expire quickly. Persist only the TofuCTF session issued by
+// the Worker; Google credentials are exchanged once and then discarded.
+let authCredential = localStorage.getItem(sessionKey) || '';
+localStorage.removeItem(legacyCredentialKey);
+sessionStorage.removeItem(legacyCredentialKey);
 let authUser = null;
 let profileAbort = new AbortController();
 
@@ -109,21 +108,31 @@ async function verifyCredential(credential) {
   });
   const data = await response.json();
   if (!response.ok) throw new Error(data.error || 'Login failed');
+  return data;
+}
+
+async function verifySession(token) {
+  const response = await fetch(`${TOFU_AUTH.api}/auth/session`, {
+    headers: { authorization: `Bearer ${token}` },
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || 'Session expired');
   return data.user;
 }
 
 async function handleGoogleCredential(response) {
   authBox.innerHTML = '<span class="auth-loading">VERIFYING…</span>';
   try {
-    authUser = await verifyCredential(response.credential);
-    authCredential = response.credential;
-    localStorage.setItem(credentialKey, authCredential);
+    const login = await verifyCredential(response.credential);
+    authUser = login.user;
+    authCredential = login.token;
+    localStorage.setItem(sessionKey, authCredential);
     showUser(authUser);
     window.dispatchEvent(new CustomEvent('tofuctf:login', { detail: authUser }));
   } catch (error) {
     console.error(error);
     authCredential = '';
-    localStorage.removeItem(credentialKey);
+    localStorage.removeItem(sessionKey);
     showGoogleButton();
   }
 }
@@ -132,7 +141,7 @@ function signOut() {
   google.accounts.id.disableAutoSelect();
   authCredential = '';
   authUser = null;
-  localStorage.removeItem(credentialKey);
+  localStorage.removeItem(sessionKey);
   showGoogleButton();
   window.dispatchEvent(new Event('tofuctf:logout'));
 }
@@ -143,16 +152,17 @@ async function initGoogleAuth() {
     callback: handleGoogleCredential,
     auto_select: false,
     cancel_on_tap_outside: true,
+    itp_support: true,
   });
   if (authCredential) {
     try {
-      authUser = await verifyCredential(authCredential);
+      authUser = await verifySession(authCredential);
       showUser(authUser);
       window.dispatchEvent(new CustomEvent('tofuctf:login', { detail: authUser }));
       return;
     } catch {
       authCredential = '';
-      localStorage.removeItem(credentialKey);
+      localStorage.removeItem(sessionKey);
     }
   }
   showGoogleButton();

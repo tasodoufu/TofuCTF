@@ -45,9 +45,9 @@ async function verifyGoogleCredential(credential, env) {
 async function authenticatedUser(request, env) {
   const authorization = request.headers.get("Authorization") || "";
   if (!authorization.startsWith("Bearer ")) throw new Error("Authentication required");
-  const credential = authorization.slice(7);
-  if (!credential || credential.length > 4096) throw new Error("Invalid credential");
-  return verifyGoogleCredential(credential, env);
+  const token = authorization.slice(7);
+  if (!token || token.length > 4096) throw new Error("Invalid session");
+  return parseSessionToken(token, env);
 }
 
 async function saveUser(user, env) {
@@ -87,12 +87,44 @@ function safeEqual(left, right) {
 }
 
 function base64urlEncode(value) {
-  return btoa(value).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  const bytes = encoder.encode(value);
+  return btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
 function base64urlDecode(value) {
   const padded = value.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((value.length + 3) % 4);
-  return atob(padded);
+  return new TextDecoder().decode(Uint8Array.from(atob(padded), character => character.charCodeAt(0)));
+}
+
+async function createSessionToken(user, env) {
+  if (!env.SESSION_SECRET) throw new Error("Session signing is not configured");
+  const payload = base64urlEncode(JSON.stringify({
+    sub: user.id,
+    email: user.email,
+    name: user.name,
+    picture: user.picture,
+    exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
+  }));
+  return `${payload}.${await hmacHex(env.SESSION_SECRET, `session:${payload}`)}`;
+}
+
+async function parseSessionToken(token, env) {
+  if (!env.SESSION_SECRET) throw new Error("Session signing is not configured");
+  const [payload, signature, extra] = token.split(".");
+  if (!payload || !signature || extra || !safeEqual(signature, await hmacHex(env.SESSION_SECRET, `session:${payload}`))) {
+    throw new Error("Invalid session");
+  }
+  const data = JSON.parse(base64urlDecode(payload));
+  if (typeof data.sub !== "string" || !data.sub || Number(data.exp) <= Date.now() / 1000) {
+    throw new Error("Session expired");
+  }
+  return {
+    id: data.sub,
+    email: typeof data.email === "string" ? data.email : "",
+    name: typeof data.name === "string" ? data.name : data.email || "TofuCTF user",
+    picture: typeof data.picture === "string" ? data.picture : "",
+    expiresAt: Number(data.exp),
+  };
 }
 
 async function createLaunchToken(userId, challengeId, env) {
@@ -151,7 +183,16 @@ export default {
           return json({ error: "Invalid credential" }, 400, origin);
         }
         const user = await verifyGoogleCredential(credential, env);
-        return json({ user }, 200, origin);
+        await saveUser(user, env);
+        return json({ user, token: await createSessionToken(user, env) }, 200, origin);
+      } catch (error) {
+        return json({ error: error.message }, 401, origin);
+      }
+    }
+
+    if (url.pathname === "/auth/session" && request.method === "GET") {
+      try {
+        return json({ user: await authenticatedUser(request, env) }, 200, origin);
       } catch (error) {
         return json({ error: error.message }, 401, origin);
       }
