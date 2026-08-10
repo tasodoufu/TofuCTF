@@ -7,24 +7,25 @@
   <title>TofuCTF — pwn, one bite harder.</title>
   <meta name="description" content="pwnだけを一段ずつ極める個人CTF。ローカルDocker環境をnetcatで攻略します。">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="calendar.css">
 </head>
 <body>
   <header class="nav shell">
     <a class="brand" href="#top" aria-label="TofuCTF home"><span class="logo">豆</span>TofuCTF</a>
-    <nav><a href="#challenges">Challenges</a><a href="#how">How it works</a></nav>
-    <span class="status"><i></i> local lab</span>
+    <nav><a href="#challenges">Today</a><a href="#calendar">Calendar</a><a href="#how">How it works</a></nav>
+    <span class="status"><i></i> new bite / 05:00 JST</span>
   </header>
 
   <main id="top">
     <section class="hero shell">
       <div class="eyebrow">PERSONAL PWN LAB / SEASON 01</div>
       <h1>やわらかく始めて、<br><em>堅牢さを壊す。</em></h1>
-      <p class="lead">pwnだけを、いまの自分より一段むずかしく。手元のDockerを攻撃して、毎回新しいflagを奪う。</p>
-      <div class="actions"><a class="button primary" href="#challenges">最初の問題へ</a><a class="button ghost" href="#how">遊び方を見る</a></div>
+      <p class="lead">pwnだけを、昨日の自分より一段むずかしく。毎朝5時に新しいひと口。</p>
+      <div class="actions"><a class="button primary" href="#challenges">今日のひと口</a><button class="button ghost" id="focusButton" type="button">15分だけ始める</button></div>
       <div class="stats">
         <div><strong id="solvedCount">0</strong><span>SOLVED</span></div>
-        <div><strong>01</strong><span>AVAILABLE</span></div>
-        <div><strong>100%</strong><span>PWN ONLY</span></div>
+        <div><strong id="availableCount">01</strong><span>AVAILABLE</span></div>
+        <div><strong id="comebackCount">0</strong><span>COMEBACKS</span></div>
       </div>
     </section>
 
@@ -32,21 +33,19 @@
 
     <section class="shell section" id="challenges">
       <div class="section-head"><div><span class="kicker">CHALLENGE 001</span><h2>今日のひと口</h2></div><p>基礎が見えれば解ける。でも、入力しただけでは終わらない。</p></div>
-      <article class="challenge" id="warm-tofu">
-        <div class="challenge-main">
-          <div class="tags"><span>PWN</span><span>BEGINNER +1</span><span>50 PTS</span></div>
-          <h3>Warm Tofu</h3>
-          <p>小さな豆腐屋の注文受付には、少し大きすぎる注文を断れない癖がある。隠された厨房への道を探そう。</p>
-          <dl><div><dt>ARCH</dt><dd>amd64</dd></div><div><dt>MITIGATIONS</dt><dd>NX / No PIE</dd></div><div><dt>ACCESS</dt><dd>localhost:31337</dd></div></dl>
-        </div>
-        <aside class="challenge-side">
-          <div class="difficulty"><span>DIFFICULTY</span><b>●●○○○</b></div>
-          <a class="download" href="downloads/warm-tofu.tar.gz" download>Download challenge <span>↓</span></a>
-          <button class="open-modal" type="button">Submit flag</button>
-          <small class="solve-state">Not solved yet</small>
-        </aside>
-      </article>
+      <div id="todayChallenge"></div>
+      <aside class="nudge"><span>NO GUILT MODE</span><strong>空いた日は失敗じゃない。今日戻ってきたら、それが一勝。</strong><button id="pickBacklog" type="button">積み残しから1問選ぶ →</button></aside>
     </section>
+
+    <section class="calendar-section" id="calendar"><div class="shell section">
+      <div class="section-head"><div><span class="kicker">SEASON 01 / 30 BITES</span><h2>Pwn Calendar</h2></div><p>日付を選ぶと、その日の問題へ。未解決は責めずに次の一口として残す。</p></div>
+      <div class="calendar-toolbar"><button id="prevMonth" type="button">←</button><strong id="monthLabel"></strong><button id="nextMonth" type="button">→</button></div>
+      <div class="calendar-week"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div>
+      <div id="calendarGrid" class="calendar-grid"></div>
+      <div class="legend"><span><i class="dot available"></i>Available</span><span><i class="dot solved"></i>Solved</span><span><i class="dot rest"></i>Future / rest</span></div>
+    </div></section>
+
+    <section class="shell section"><div class="section-head"><div><span class="kicker">BACKLOG</span><h2>これまでのひと口</h2></div><select id="challengeFilter"><option value="all">すべて</option><option value="unsolved">未解決</option><option value="solved">Solved</option></select></div><div id="challengeList" class="challenge-list"></div></section>
 
     <section class="how" id="how"><div class="shell section">
       <div class="section-head"><div><span class="kicker">LOCAL-FIRST</span><h2>Pagesなのに、netcat。</h2></div></div>
@@ -60,8 +59,9 @@
   </main>
 
   <dialog id="flagDialog">
-    <form method="dialog"><button class="close" value="cancel" aria-label="閉じる">×</button><span class="kicker">WARM TOFU</span><h2>Submit flag</h2><p>exploitで取得したflagを入力。</p><input id="flagInput" autocomplete="off" placeholder="TofuCTF{...}" aria-label="Flag"><div id="flagMessage" role="status"></div><button class="button primary submit" id="submitFlag" type="button">判定する</button></form>
+    <form method="dialog"><button class="close" value="cancel" aria-label="閉じる">×</button><span class="kicker" id="dialogKicker">TOFU CTF</span><h2>Submit flag</h2><p id="dialogTitle">exploitで取得したflagを入力。</p><input id="flagInput" autocomplete="off" placeholder="TofuCTF{...}" aria-label="Flag"><div id="flagMessage" role="status"></div><button class="button primary submit" id="submitFlag" type="button">判定する</button></form>
   </dialog>
+  <dialog id="focusDialog"><form method="dialog"><button class="close" value="cancel">×</button><span class="kicker">15 MINUTE MODE</span><h2>今日はここだけ。</h2><ol class="micro-steps"><li>問題をダウンロード</li><li><code>./run.sh</code> を実行</li><li><code>checksec</code> と一度だけ接続</li></ol><p>15分で止めても成功。続けたくなったら、そのとき続けよう。</p><button class="button primary submit" value="cancel">始める</button></form></dialog>
   <footer class="shell">TofuCTF <span>pwn, one bite harder.</span></footer>
   <script src="app.js"></script>
 </body>

@@ -1,0 +1,12 @@
+.calendar-section{background:#ebe6da;border-block:1px solid var(--ink)}
+.calendar-toolbar{display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:20px;font:500 18px "DM Mono"}
+.calendar-toolbar button{border:1px solid var(--ink);background:var(--tofu);width:36px;height:36px;cursor:pointer}
+.calendar-week,.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+.calendar-week span{padding:10px;text-align:center;font:10px "DM Mono"}
+.calendar-grid{border-left:1px solid var(--ink);border-top:1px solid var(--ink)}
+.calendar-day{min-height:86px;padding:12px;border:0;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--tofu);text-align:left;display:flex;justify-content:space-between;cursor:pointer}
+.calendar-day b,.calendar-day small{font:12px "DM Mono"}.calendar-day.available{background:var(--lime)}.calendar-day.solved{background:var(--green);color:white}.calendar-day.rest,.calendar-day.blank{background:#ded9ce;color:#aaa;cursor:default}
+.legend{display:flex;gap:24px;margin-top:18px;font:10px "DM Mono"}.dot{display:inline-block;width:9px;height:9px;margin-right:7px}.dot.available{background:var(--lime)}.dot.solved{background:var(--green)}.dot.rest{background:#ccc6ba}
+.nudge{margin-top:38px;border:1px solid var(--ink);padding:22px 26px;background:var(--lime);display:flex;align-items:center;gap:22px}.nudge span{font:10px "DM Mono"}.nudge strong{font-size:14px}.nudge button{margin-left:auto;border:0;border-bottom:1px solid;background:none;font:600 11px "DM Mono";cursor:pointer}.micro-steps{line-height:2;font-size:14px}.micro-steps code{background:var(--paper);padding:2px 5px}
+@media(max-width:760px){.calendar-day{min-height:58px;padding:7px}.calendar-day small{display:none}.nudge{align-items:flex-start;flex-direction:column}.nudge button{margin-left:0}.legend{flex-wrap:wrap}}
+.challenge-list{display:grid;gap:28px}.challenge.compact{box-shadow:5px 5px 0 var(--green)}.challenge.compact .challenge-main{padding:30px}.challenge.compact h3{font-size:27px;margin:18px 0 8px}.section select{padding:10px 14px;background:var(--tofu);border:1px solid var(--ink);font:11px "DM Mono"}
