@@ -1,4 +1,4 @@
-Warm Tofu / TofuCTF
+Cool Tofu / TofuCTF
 ====================
 
 Requirements: Docker, netcat
@@ -7,7 +7,7 @@ Requirements: Docker, netcat
      chmod +x run.sh stop.sh
      ./run.sh
 
-2. Analyze the included `warm-tofu` binary.
+2. Analyze the included `cool-tofu` binary.
 
 3. Connect locally:
      nc 127.0.0.1 31337

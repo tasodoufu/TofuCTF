@@ -1,4 +1,5 @@
 const key=id=>`tofuctf:${id}`,isSolved=id=>localStorage.getItem(key(id))==='solved';
+const sha256Hex=async value=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value))),byte=>byte.toString(16).padStart(2,'0')).join('');
 const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo'}).format(new Date());
 let items=[],active=null,view=new Date(`${today}T12:00:00+09:00`);
 const localSolvedIds=()=>Object.keys(localStorage).filter(k=>k.startsWith('tofuctf:')&&localStorage.getItem(k)==='solved').map(k=>k.slice(8));
@@ -16,7 +17,7 @@ async function syncProgress(challengeIds=localSolvedIds()){
   }catch(error){console.error('TofuCTF progress sync:',error);return false}
 }
 const access=c=>`${c.host||'localhost'}:${c.port}`;
-const accessCommand=c=>`nc ${c.host||'localhost'} ${c.port}`;
+const accessCommand=c=>c.command||`nc ${c.host||'localhost'} ${c.port}`;
 const copyAccessButton=c=>`<button class="copy-access" type="button" data-command="${accessCommand(c)}" title="接続コマンドをコピー"><span>${accessCommand(c)}</span><i>COPY</i></button>`;
 const card=(c,compact=false)=>`<article class="challenge ${isSolved(c.id)?'solved':''} ${compact?'compact':''}" id="${compact?'archive-':''}${c.id}"><div class="challenge-main"><div class="tags"><span>PWN</span><span>${compact?c.topic.toUpperCase():'BEGINNER +1'}</span><span>${c.points} PTS</span></div><h3>${c.title}</h3><p>${c.subtitle}</p><dl><div><dt>ARCH</dt><dd>${c.arch}</dd></div><div><dt>MITIGATIONS</dt><dd>${c.mitigations}</dd></div><div><dt>ACCESS</dt><dd>${copyAccessButton(c)}</dd></div></dl></div><aside class="challenge-side"><div class="difficulty"><span>DIFFICULTY</span><b>${'●'.repeat(c.level)}${'○'.repeat(5-c.level)}</b></div><a class="download" href="${c.download}" download>${compact?'Download':'Download challenge'} <span>↓</span></a><button class="open-modal" data-id="${c.id}" type="button">${isSolved(c.id)?'Solved ✓':'Submit flag'}</button><small class="solve-state">${isSolved(c.id)?'✓ Solved locally':'Not solved yet'}</small></aside></article>`;
 function bind(){document.querySelectorAll('.open-modal').forEach(b=>b.onclick=()=>openChallenge(items.find(c=>c.id===b.dataset.id)))}
@@ -28,12 +29,19 @@ submitFlag.onclick=async()=>{
   const credential=window.tofuAuth?.credential;
   submitFlag.disabled=true;flagMessage.textContent='VERIFYING…';flagMessage.style.color='#77736a';
   try{
-    const headers={'content-type':'application/json'};if(credential)headers.authorization=`Bearer ${credential}`;
-    const response=await fetch(`${TOFU_AUTH.api}/api/submit`,{method:'POST',headers,body:JSON.stringify({challengeId:active.id,flag:flagInput.value.trim()})});
-    const data=await response.json();if(!response.ok)throw new Error(data.error||'Submit failed');
-    if(!data.correct){flagMessage.textContent='Incorrect — flagが一致しません。';flagMessage.style.color='#a23b31';return}
-    localStorage.setItem(key(active.id),'solved');(data.solved||[]).forEach(solve=>localStorage.setItem(key(solve.id),'solved'));render();flagMessage.textContent=data.accountSaved?'Correct — アカウントに保存しました！':'Correct — このブラウザに保存しました！';flagMessage.style.color='#1f5b45';setTimeout(()=>flagDialog.close(),900);
-  }catch(error){console.error(error);flagMessage.textContent='判定できませんでした。ログイン状態と通信を確認してください。';flagMessage.style.color='#a23b31'}finally{submitFlag.disabled=false}
+    const flag=flagInput.value.trim();
+    if(await sha256Hex(flag)!==active.flagHash){flagMessage.textContent='Incorrect — flagが一致しません。';flagMessage.style.color='#a23b31';return}
+    localStorage.setItem(key(active.id),'solved');render();
+    let accountSaved=false;
+    if(credential){
+      try{
+        const response=await fetch(`${TOFU_AUTH.api}/api/submit`,{method:'POST',headers:{'content-type':'application/json','authorization':`Bearer ${credential}`},body:JSON.stringify({challengeId:active.id,flag})});
+        const data=await response.json();
+        if(response.ok&&data.correct){accountSaved=Boolean(data.accountSaved);(data.solved||[]).forEach(solve=>localStorage.setItem(key(solve.id),'solved'));render()}
+      }catch(error){console.error('TofuCTF optional progress sync:',error)}
+    }
+    flagMessage.textContent=accountSaved?'Correct — アカウントにも保存しました！':'Correct — このブラウザに保存しました！';flagMessage.style.color='#1f5b45';setTimeout(()=>flagDialog.close(),900);
+  }catch(error){console.error(error);flagMessage.textContent='ローカル判定に失敗しました。ブラウザを再読み込みしてください。';flagMessage.style.color='#a23b31'}finally{submitFlag.disabled=false}
 };
 focusButton.onclick=()=>focusDialog.showModal();prevMonth.onclick=()=>{view.setMonth(view.getMonth()-1);renderCalendar()};nextMonth.onclick=()=>{view.setMonth(view.getMonth()+1);renderCalendar()};currentMonth.onclick=()=>{view=new Date(`${today}T12:00:00+09:00`);renderCalendar()};challengeDialogSubmit.onclick=()=>{challengeDialog.close();dialogKicker.textContent=`CHALLENGE ${String(active.number).padStart(3,'0')}`;dialogTitle.textContent=active.title;flagInput.value='';flagMessage.textContent='';flagDialog.showModal()};pickBacklog.onclick=()=>{const backlog=items.filter(c=>c.date<=today&&!isSolved(c.id)),pick=backlog[Math.floor(Math.random()*backlog.length)];if(pick){localStorage.setItem('tofuctf:comebacks',String(Number(localStorage.getItem('tofuctf:comebacks')||0)+1));openChallenge(pick);render()}};
 fetch('challenges.json').then(r=>r.json()).then(data=>{items=data.sort((a,b)=>a.date.localeCompare(b.date));render()}).catch(()=>todayChallenge.textContent='問題一覧を読み込めませんでした。');

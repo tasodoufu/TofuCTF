@@ -1,1 +1,4 @@
-[{"id":"warm-tofu","number":1,"date":"2026-08-10","title":"Warm Tofu","subtitle":"小さな豆腐屋の注文受付には、少し大きすぎる注文を断れない癖がある。隠された厨房への道を探そう。","topic":"stack overflow / ret2win","level":2,"points":50,"arch":"amd64","mitigations":"NX / No PIE","host":"tofuctf.tailc3d416.ts.net","port":10000,"download":"downloads/warm-tofu.tar.gz"}]
+[
+  {"id":"warm-tofu","number":1,"date":"2026-08-10","title":"Warm Tofu","subtitle":"小さな豆腐屋の注文受付には、少し大きすぎる注文を断れない癖がある。隠された厨房への道を探そう。","topic":"stack overflow / ret2win","level":2,"points":50,"arch":"amd64","mitigations":"NX / No PIE","host":"127.0.0.1","port":31337,"command":"nc 127.0.0.1 31337","download":"downloads/warm-tofu.tar.gz","flagHash":"a69b794f2592a777efe8b07facd9f7166dcb8ee6424b92646361302419863e3e"},
+  {"id":"cool-tofu","number":2,"date":"2026-08-11","title":"Cool Tofu","subtitle":"冷たい豆腐には正しいトッピングが必要らしい。関数を呼ぶだけでなく、最初の引数もきちんと届けよう。","topic":"ROP / argument control","level":3,"points":75,"arch":"amd64","mitigations":"NX / No PIE","host":"127.0.0.1","port":31337,"command":"nc 127.0.0.1 31337","download":"downloads/cool-tofu.tar.gz","flagHash":"5d6ce6a69616863f6004f7a7fe4105b9d93f37f355ed8ec986d418537ed48ea9"}
+]
