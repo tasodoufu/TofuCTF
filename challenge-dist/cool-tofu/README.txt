@@ -4,7 +4,7 @@ Cool Tofu / TofuCTF
 Requirements: Docker, netcat
 
 1. Start the local challenge service:
-     chmod +x run.sh stop.sh
+     chmod +x run.sh
      ./run.sh
 
 2. Analyze the included `cool-tofu` binary.
@@ -13,6 +13,9 @@ Requirements: Docker, netcat
      nc 127.0.0.1 31337
 
 4. Retrieve the flag and submit it on TofuCTF.
+
+5. Stop the service when finished:
+     ./run.sh stop
 
 Google login is optional. Without login, solved progress is stored in the
 current browser; with login, it is also synced to the account.

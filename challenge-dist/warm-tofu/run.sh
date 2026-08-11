@@ -8,6 +8,18 @@ port="${PORT:-31337}"
 slug=warm-tofu
 
 command -v docker >/dev/null 2>&1 || { echo "Docker is required." >&2; exit 1; }
+
+case "${1:-start}" in
+  start) ;;
+  stop)
+    docker rm -f "$container" >/dev/null 2>&1 || true
+    docker volume rm "$volume" >/dev/null 2>&1 || true
+    echo "Warm Tofu stopped."
+    exit 0
+    ;;
+  *) echo "Usage: $0 [start|stop]" >&2; exit 2 ;;
+esac
+
 command -v sha256sum >/dev/null 2>&1 || { echo "sha256sum is required." >&2; exit 1; }
 
 binary_hash="$(sha256sum "./$slug" | awk '{print $1}')"

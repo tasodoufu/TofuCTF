@@ -7,10 +7,9 @@ RUN apt-get update \
  && ln -s /secrets/flag /flag
 
 COPY cool-tofu /home/ctf/challenge
-COPY entrypoint.sh /entrypoint.sh
-RUN chown root:root /home/ctf/challenge /entrypoint.sh \
- && chmod 755 /home/ctf/challenge /entrypoint.sh
+RUN chown root:root /home/ctf/challenge \
+ && chmod 755 /home/ctf/challenge
 
 USER ctf
 EXPOSE 31337
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["socat", "TCP-LISTEN:31337,reuseaddr,fork,max-children=16", "EXEC:/home/ctf/challenge,stderr"]
