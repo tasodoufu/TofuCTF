@@ -25,7 +25,7 @@
       <div class="eyebrow">PERSONAL PWN LAB / SEASON 01</div>
       <h1>やわらかく始めて、<br><em>堅牢さを壊す。</em></h1>
       <p class="lead">pwnだけを、昨日の自分より一段むずかしく。毎朝5時に新しいひと口。</p>
-      <div class="actions"><a class="button primary" href="#challenges">今日のひと口</a><button class="button ghost" id="focusButton" type="button">15分だけ始める</button></div>
+      <div class="actions"><a class="button primary" href="#challenges">今日のひと口</a><button class="button ghost" id="focusButton" type="button">始め方を見る</button></div>
       <div class="stats">
         <div><strong id="solvedCount">0</strong><span>SOLVED</span></div>
         <div><strong id="availableCount">01</strong><span>AVAILABLE</span></div>
@@ -50,13 +50,13 @@
     </div></section>
 
     <section class="how" id="how"><div class="shell section">
-      <div class="section-head"><div><span class="kicker">LOCAL-FIRST</span><h2>Pagesなのに、netcat。</h2></div></div>
+      <div class="section-head"><div><span class="kicker">HOW TO PLAY</span><h2>ローカルで始める。</h2></div></div>
       <ol>
-        <li><span>01</span><div><h3>Download</h3><p>問題一式を取得して展開する。</p></div></li>
-        <li><span>02</span><div><h3>Connect</h3><p><code>nc tofuctf.tailc3d416.ts.net 10000</code> で接続する。</p></div></li>
-        <li><span>03</span><div><h3>Pwn</h3><p>バイナリを解析し、公開サービスからflagを奪取する。</p></div></li>
+        <li><span>01</span><div><h3>Download</h3><p>問題をダウンロードして、好きな場所へ展開する。</p></div></li>
+        <li><span>02</span><div><h3>Run</h3><p>問題フォルダで <code>./run.sh</code> を実行し、Dockerコンテナを起動する。</p></div></li>
+        <li><span>03</span><div><h3>Connect &amp; Pwn</h3><p><code>nc 127.0.0.1 31337</code> で接続し、バイナリを解析してflagを取得する。</p></div></li>
       </ol>
-      <p class="note">Googleログインなしでも挑戦できます。ログインするとSolved履歴をアカウントへ同期できます。</p>
+      <p class="note">終わったら <code>./run.sh stop</code> で停止できます。Googleログインなしでも挑戦でき、ログインするとSolved履歴を同期できます。</p>
     </div></section>
   </main>
 
@@ -64,7 +64,7 @@
     <form method="dialog"><button class="close" value="cancel" aria-label="閉じる">×</button><span class="kicker" id="dialogKicker">TOFU CTF</span><h2>Submit flag</h2><p id="dialogTitle">exploitで取得したflagを入力。</p><input id="flagInput" autocomplete="off" placeholder="TofuCTF{...}" aria-label="Flag"><div id="flagMessage" role="status"></div><button class="button primary submit" id="submitFlag" type="button">判定する</button></form>
   </dialog>
   <dialog id="challengeDialog" class="challenge-dialog"><form method="dialog"><button class="close" value="cancel" aria-label="閉じる">×</button><span class="kicker" id="challengeDialogKicker"></span><h2 id="challengeDialogTitle"></h2><p id="challengeDialogDescription"></p><div class="modal-meta" id="challengeDialogMeta"></div><div class="modal-actions"><a class="button primary" id="challengeDialogDownload" download>Download challenge ↓</a><button class="button ghost" id="challengeDialogSubmit" type="button">Submit flag</button></div></form></dialog>
-  <dialog id="focusDialog"><form method="dialog"><button class="close" value="cancel">×</button><span class="kicker">15 MINUTE MODE</span><h2>今日はここだけ。</h2><ol class="micro-steps"><li>問題をダウンロード</li><li><code>./run.sh</code> を実行</li><li><code>checksec</code> と一度だけ接続</li></ol><p>15分で止めても成功。続けたくなったら、そのとき続けよう。</p><button class="button primary submit" value="cancel">始める</button></form></dialog>
+  <dialog id="focusDialog"><form method="dialog"><button class="close" value="cancel">×</button><span class="kicker">HOW TO START</span><h2>TofuCTFの始め方</h2><ol class="micro-steps"><li>問題をダウンロードして展開</li><li>問題フォルダで <code>./run.sh</code></li><li><code>nc 127.0.0.1 31337</code> で接続</li><li>flag取得後、サイトの「Submit flag」で判定</li><li>終了時は <code>./run.sh stop</code></li></ol><p>必要なのはLinux環境、Docker、netcatです。Googleログインは任意です。</p><button class="button primary submit" value="cancel">わかった</button></form></dialog>
   <footer class="shell">TofuCTF <span>pwn, one bite harder.</span></footer>
   <script src="auth.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleAuth()"></script>
