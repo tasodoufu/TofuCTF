@@ -18,4 +18,5 @@ Google login is optional. Without login, solved progress is stored in the
 current browser; with login, it is also synced to the account.
 
 The service listens on localhost only. run.sh does not contact an external
-service. The flag is stored in a Docker volume, not in the extracted directory.
+service. The flag is derived locally and stored in a Docker volume; its literal
+value is not present in run.sh or the extracted directory.

@@ -5,9 +5,15 @@ image=tofuctf/warm-tofu:local
 container=tofuctf-warm-tofu
 volume=tofuctf-warm-tofu-flag
 port="${PORT:-31337}"
-flag='TofuCTF{8a74852ed6e32ef704fe8eb7ced1a540}'
+slug=warm-tofu
 
 command -v docker >/dev/null 2>&1 || { echo "Docker is required." >&2; exit 1; }
+command -v sha256sum >/dev/null 2>&1 || { echo "sha256sum is required." >&2; exit 1; }
+
+binary_hash="$(sha256sum "./$slug" | awk '{print $1}')"
+flag_hex="$(printf '%s' "tofuctf-local-v1:$slug:$binary_hash" | sha256sum | cut -c1-32)"
+flag="TofuCTF{$flag_hex}"
+unset binary_hash flag_hex
 
 docker build -t "$image" .
 docker rm -f "$container" >/dev/null 2>&1 || true
