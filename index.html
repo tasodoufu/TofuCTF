@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="utf-8">
@@ -11,8 +11,10 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="calendar.css">
+  <link rel="stylesheet" href="accessibility.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
   <header class="nav shell">
     <a class="brand" href="#top" aria-label="TofuCTF home"><span class="logo">豆</span>TofuCTF</a>
     <nav><a href="#challenges">Today</a><a href="#calendar">Calendar</a><a href="#how">How it works</a></nav>
@@ -20,7 +22,7 @@
     <div id="authBox" class="auth-box" aria-live="polite"><span class="auth-loading">LOGIN</span></div>
   </header>
 
-  <main id="top">
+  <main id="main-content" tabindex="-1">
     <section class="hero shell">
       <div class="eyebrow">PERSONAL PWN LAB / SEASON 01</div>
       <h1>やわらかく始めて、<br><em>堅牢さを壊す。</em></h1>
@@ -43,7 +45,7 @@
 
     <section class="calendar-section" id="calendar"><div class="shell section">
       <div class="section-head"><div><span class="kicker">SEASON 01 / 30 BITES</span><h2>Pwn Calendar</h2></div></div>
-      <div class="calendar-toolbar"><button id="prevMonth" type="button" aria-label="前の月">←</button><button id="currentMonth" class="current-month" type="button">今月</button><strong id="monthLabel"></strong><button id="nextMonth" type="button" aria-label="次の月">→</button></div>
+      <div class="calendar-toolbar"><button id="prevMonth" type="button" aria-label="前の月">←</button><button id="currentMonth" class="current-month" type="button">今月</button><strong id="monthLabel" aria-live="polite"></strong><button id="nextMonth" type="button" aria-label="次の月">→</button></div>
       <div class="calendar-week"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div>
       <div id="calendarGrid" class="calendar-grid"></div>
       <div class="legend"><span><i class="dot available"></i>Available</span><span><i class="dot solved"></i>Solved</span><span><i class="dot rest"></i>Future / rest</span></div>
@@ -61,10 +63,10 @@
   </main>
 
   <dialog id="flagDialog">
-    <form method="dialog"><button class="close" value="cancel" aria-label="閉じる">×</button><span class="kicker" id="dialogKicker">TOFU CTF</span><h2>Submit flag</h2><p id="dialogTitle">exploitで取得したflagを入力。</p><input id="flagInput" autocomplete="off" placeholder="TofuCTF{...}" aria-label="Flag"><div id="flagMessage" role="status"></div><button class="button primary submit" id="submitFlag" type="button">判定する</button></form>
+    <form method="dialog"><button class="close" type="submit" value="cancel" aria-label="閉じる">×</button><span class="kicker" id="dialogKicker">TOFU CTF</span><h2>Submit flag</h2><p id="dialogTitle">exploitで取得したflagを入力。</p><label class="field-label" for="flagInput">Flag</label><input id="flagInput" type="text" autocomplete="off" placeholder="TofuCTF{...}" aria-describedby="flagMessage"><div id="flagMessage" role="status"></div><button class="button primary submit" id="submitFlag" type="button">判定する</button></form>
   </dialog>
   <dialog id="challengeDialog" class="challenge-dialog"><form method="dialog"><button class="close" value="cancel" aria-label="閉じる">×</button><span class="kicker" id="challengeDialogKicker"></span><h2 id="challengeDialogTitle"></h2><p id="challengeDialogDescription"></p><div class="modal-meta" id="challengeDialogMeta"></div><div class="modal-actions"><a class="button primary" id="challengeDialogDownload" download>Download challenge ↓</a><button class="button ghost" id="challengeDialogSubmit" type="button">Submit flag</button></div></form></dialog>
-  <dialog id="focusDialog"><form method="dialog"><button class="close" value="cancel">×</button><span class="kicker">HOW TO START</span><h2>TofuCTFの始め方</h2><ol class="micro-steps"><li>問題をダウンロードして展開</li><li>問題フォルダで <code>./run.sh</code></li><li><code>nc 127.0.0.1 31337</code> で接続</li><li>flag取得後、サイトの「Submit flag」で判定</li><li>終了時は <code>./run.sh stop</code></li></ol><p>必要なのはLinux環境、Docker、netcatです。Googleログインは任意です。</p><button class="button primary submit" value="cancel">わかった</button></form></dialog>
+  <dialog id="focusDialog"><form method="dialog"><button class="close" type="submit" value="cancel" aria-label="閉じる">×</button><span class="kicker">HOW TO START</span><h2>TofuCTFの始め方</h2><ol class="micro-steps"><li>問題をダウンロードして展開</li><li>問題フォルダで <code>./run.sh</code></li><li><code>nc 127.0.0.1 31337</code> で接続</li><li>flag取得後、サイトの「Submit flag」で判定</li><li>終了時は <code>./run.sh stop</code></li></ol><p>必要なのはLinux環境、Docker、netcatです。Googleログインは任意です。</p><button class="button primary submit" type="submit" value="cancel">わかった</button></form></dialog>
   <footer class="shell">TofuCTF <span>pwn, one bite harder.</span></footer>
   <script src="auth.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleAuth()"></script>
