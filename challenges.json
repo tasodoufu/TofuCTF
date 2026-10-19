@@ -15,5 +15,22 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/wraparound-waffle.tar.gz",
   "flagHash": "90fd6abee5de733cf7467c6ae98ba6d80690fe17a0578e9296b19e5843b93da7"
+},
+{
+  "id": "mprotect-moussaka",
+  "number": 31,
+  "date": "2026-10-20",
+  "title": "Mprotect Moussaka",
+  "subtitle": "ムサカのレシピはNXで実行できない場所に置かれている。注文票のオーバーフローからROPでmprotectを呼び、ステージしたシェルコードで秘密のレシピを読もう。",
+  "topic": "ret2mprotect / ROP / shellcode injection / NX bypass",
+  "level": 4,
+  "points": 100,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/mprotect-moussaka.tar.gz",
+  "flagHash": "7c065cd2d021b124e56f7cbf3e6e30002e80062659d1a00234924e7814932570"
 }
 ]
