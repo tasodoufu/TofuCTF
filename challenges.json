@@ -32,5 +32,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/mprotect-moussaka.tar.gz",
   "flagHash": "7c065cd2d021b124e56f7cbf3e6e30002e80062659d1a00234924e7814932570"
+},
+{
+  "id": "oob-oolong",
+  "number": 32,
+  "date": "2026-10-25",
+  "title": "OOB Oolong",
+  "subtitle": "ウーロン茶のラベル台は、8枠しかない配列の外まで番号を受け付ける。隣にある終了コールバックを書き換え、隠された一杯を提供させよう。",
+  "description": "ウーロン茶のラベル台は、8枠しかない配列の外まで番号を受け付ける。隣にある終了コールバックを書き換え、隠された一杯を提供させよう。",
+  "topic": "out-of-bounds indexed write / function-pointer overwrite",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/oob-oolong.tar.gz",
+  "flagHash": "d203fc6d43f52e52d8e29cd2aa48ab73caf491ec000d3e4ee73c91c0045c6fb8"
 }
 ]
