@@ -50,5 +50,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/oob-oolong.tar.gz",
   "flagHash": "d203fc6d43f52e52d8e29cd2aa48ab73caf491ec000d3e4ee73c91c0045c6fb8"
+},
+{
+  "id": "dangling-dosa",
+  "number": 33,
+  "date": "2026-10-26",
+  "title": "Dangling Dosa",
+  "subtitle": "注文票の構造体は関数のスタック上に置かれ、関数が戻った後もそのアドレスが残っている。次の関数が同じスタック枠を40バイトのレシピカードとして再利用した瞬間を利用し、古い注文のコールバックを隠し配膳関数へ差し替えよう。",
+  "description": "注文票の構造体は関数のスタック上に置かれ、関数が戻った後もそのアドレスが残っている。次の関数が同じスタック枠を40バイトのレシピカードとして再利用した瞬間を利用し、古い注文のコールバックを隠し配膳関数へ差し替えよう。",
+  "topic": "use-after-return / stack-frame reuse / stale function-pointer call",
+  "level": 4,
+  "points": 100,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/dangling-dosa.tar.gz",
+  "flagHash": "438fc5c913971d2f69e1775d4d6d49ed4a83a6423f64f50211e6014c193eef25"
 }
 ]
