@@ -1,4 +1,5 @@
-FROM debian:bookworm-slim
+# The prebuilt ELF requires GLIBC_2.38; Debian trixie supplies glibc 2.41.
+FROM debian:trixie-slim
 RUN apt-get update \
  && apt-get install -y --no-install-recommends socat \
  && rm -rf /var/lib/apt/lists/* \
