@@ -86,5 +86,23 @@
     "command": "nc 127.0.0.1 31337",
     "download": "downloads/null-byte-nougat.tar.gz",
     "flagHash": "51639070431dbcb7cd32f244307004949aa1457a9e957c0363895a59e3e2fe4d"
+  },
+  {
+    "id": "spirit-souffle",
+    "number": 35,
+    "date": "2026-10-29",
+    "title": "Spirit Souffle",
+    "subtitle": "ふわりと軽いスフレの配膳台には、偽のヒープチャンクが仕込まれている。House of Spiritでそれを解放・再取得し、コールバックを秘密のレシピへ向けよう。",
+    "description": "ふわりと軽いスフレの配膳台には、偽のヒープチャンクが仕込まれている。House of Spiritでそれを解放・再取得し、コールバックを秘密のレシピへ向けよう。",
+    "topic": "House of Spirit / fake chunk / tcache allocation",
+    "level": 4,
+    "points": 100,
+    "arch": "amd64",
+    "mitigations": "NX / Full RELRO / No PIE / ASLR",
+    "host": "127.0.0.1",
+    "port": 31337,
+    "command": "nc 127.0.0.1 31337",
+    "download": "downloads/spirit-souffle.tar.gz",
+    "flagHash": "070a735f8dda4696227bd42988c0d0a14a2c341b9d509216b72ef9620fb4f46a"
   }
 ]
