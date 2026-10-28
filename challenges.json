@@ -68,5 +68,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/dangling-dosa.tar.gz",
   "flagHash": "438fc5c913971d2f69e1775d4d6d49ed4a83a6423f64f50211e6014c193eef25"
-}
+},
+  {
+    "id": "null-byte-nougat",
+    "number": 34,
+    "date": "2026-10-28",
+    "title": "Null-Byte Nougat",
+    "subtitle": "16バイトの試食メモのすぐ隣には、特別なレシピを開く承認バイトがある。fgetsの終端NULを一歩だけはみ出させて、秘密のレシピを解放しよう。",
+    "description": "16バイトの試食メモのすぐ隣には、特別なレシピを開く承認バイトがある。fgetsの終端NULを一歩だけはみ出させて、秘密のレシピを解放しよう。",
+    "topic": "off-by-null / adjacent-field overwrite / authorization bypass",
+    "level": 2,
+    "points": 50,
+    "arch": "amd64",
+    "mitigations": "NX / Stack Canary / PIE / Full RELRO / ASLR",
+    "host": "127.0.0.1",
+    "port": 31337,
+    "command": "nc 127.0.0.1 31337",
+    "download": "downloads/null-byte-nougat.tar.gz",
+    "flagHash": "51639070431dbcb7cd32f244307004949aa1457a9e957c0363895a59e3e2fe4d"
+  }
 ]
