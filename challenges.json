@@ -104,5 +104,23 @@
     "command": "nc 127.0.0.1 31337",
     "download": "downloads/spirit-souffle.tar.gz",
     "flagHash": "070a735f8dda4696227bd42988c0d0a14a2c341b9d509216b72ef9620fb4f46a"
+  },
+  {
+    "id": "longjmp-lassi",
+    "number": 36,
+    "date": "2026-10-30",
+    "title": "Longjmp Lassi",
+    "subtitle": "ラッシーの注文カウンターは、setjmpで保存した戻り先をpointer manglingして管理している。既知の復帰アドレスと漏れた値からpointer guardを復元し、隠しレシピへ戻ろう。",
+    "description": "ラッシーの注文カウンターは、setjmpで保存した戻り先をpointer manglingして管理している。既知の復帰アドレスと漏れた値からpointer guardを復元し、隠しレシピへ戻ろう。",
+    "topic": "setjmp/longjmp control-flow hijack / glibc pointer mangling / pointer-guard recovery",
+    "level": 4,
+    "points": 100,
+    "arch": "amd64",
+    "mitigations": "NX / Stack Canary / Full RELRO / No PIE / ASLR",
+    "host": "127.0.0.1",
+    "port": 31337,
+    "command": "nc 127.0.0.1 31337",
+    "download": "downloads/longjmp-lassi.tar.gz",
+    "flagHash": "babd7b4044e73ea160aa8caadcc466a6fa7a4fc6b6d184934f8f1792c83a6986"
   }
 ]
