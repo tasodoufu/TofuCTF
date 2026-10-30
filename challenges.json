@@ -123,4 +123,23 @@
     "download": "downloads/longjmp-lassi.tar.gz",
     "flagHash": "babd7b4044e73ea160aa8caadcc466a6fa7a4fc6b6d184934f8f1792c83a6986"
   }
+,
+  {
+    "id": "top-chunk-tart",
+    "number": 37,
+    "date": "2026-10-31",
+    "title": "Top-Chunk Tart",
+    "subtitle": "小さな教材用アロケータのトップチャンクサイズは、レシピカードの編集で8バイトだけ上書きできる。サイズを偽装して後続の割り当てをメタデータ越しに誘導し、配膳コールバックを書き換えよう。",
+    "description": "小さな教材用アロケータのトップチャンクサイズは、レシピカードの編集で8バイトだけ上書きできる。サイズを偽装して後続の割り当てをメタデータ越しに誘導し、配膳コールバックを書き換えよう。",
+    "topic": "top-chunk size corruption / allocator steering / global callback overwrite",
+    "level": 3,
+    "points": 75,
+    "arch": "amd64",
+    "mitigations": "NX / Full RELRO / No PIE",
+    "host": "127.0.0.1",
+    "port": 31337,
+    "command": "nc 127.0.0.1 31337",
+    "download": "downloads/top-chunk-tart.tar.gz",
+    "flagHash": "9efa7e5cd4dad810dbfbc93ec1caed8f7a5c694daf86de5a1d447f824e62c766"
+  }
 ]
