@@ -141,5 +141,23 @@
     "command": "nc 127.0.0.1 31337",
     "download": "downloads/top-chunk-tart.tar.gz",
     "flagHash": "9efa7e5cd4dad810dbfbc93ec1caed8f7a5c694daf86de5a1d447f824e62c766"
+  },
+  {
+    "id": "red-zone-zongzi",
+    "number": 38,
+    "date": "2026-11-01",
+    "title": "Red-Zone Zongzi",
+    "subtitle": "ちまきの注文窓口は、AMD64 ABIがleaf function向けに確保する128バイトのred zoneからレシピを読む。範囲を越えて保存された戻り先を書き換え、隠し具材へ飛ぼう。",
+    "description": "ちまきの注文窓口は、AMD64 ABIがleaf function向けに確保する128バイトのred zoneからレシピを読む。範囲を越えて保存された戻り先を書き換え、隠し具材へ飛ぼう。",
+    "topic": "AMD64 red-zone stack overflow / saved return-address overwrite",
+    "level": 3,
+    "points": 75,
+    "arch": "amd64",
+    "mitigations": "NX / Full RELRO / No PIE",
+    "host": "127.0.0.1",
+    "port": 31337,
+    "command": "nc 127.0.0.1 31337",
+    "download": "downloads/red-zone-zongzi.tar.gz",
+    "flagHash": "01ea45983700abca48fd090afa04b8a38d9df82fbdcef519bd2d03d62680bade"
   }
 ]
