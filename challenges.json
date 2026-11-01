@@ -159,5 +159,23 @@
     "command": "nc 127.0.0.1 31337",
     "download": "downloads/red-zone-zongzi.tar.gz",
     "flagHash": "01ea45983700abca48fd090afa04b8a38d9df82fbdcef519bd2d03d62680bade"
-  }
+  },
+{
+  "id": "bounds-biryani",
+  "number": 39,
+  "date": "2026-11-02",
+  "title": "Bounds Biryani",
+  "subtitle": "ビリヤニのレシピ見本は添字の範囲を確かめず、隣にある特別な配膳先まで読み取れてしまう。漏れたPIEアドレスを手がかりに、長すぎる注文票から秘密の一皿へ戻ろう。",
+  "description": "ビリヤニのレシピ見本は添字の範囲を確かめず、隣にある特別な配膳先まで読み取れてしまう。漏れたPIEアドレスを手がかりに、長すぎる注文票から秘密の一皿へ戻ろう。",
+  "topic": "out-of-bounds indexed read / PIE address disclosure / stack overflow / ret2win",
+  "level": 4,
+  "points": 100,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / PIE / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/bounds-biryani.tar.gz",
+  "flagHash": "ee5e920cdb8cdbb66842e1e99032b9ce8cfdb610fb82d980694113b009261091"
+}
 ]
