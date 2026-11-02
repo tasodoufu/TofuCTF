@@ -177,5 +177,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/bounds-biryani.tar.gz",
   "flagHash": "ee5e920cdb8cdbb66842e1e99032b9ce8cfdb610fb82d980694113b009261091"
+},
+{
+  "id": "bss-borscht",
+  "number": 40,
+  "date": "2026-11-03",
+  "title": "BSS Borscht",
+  "subtitle": "24バイトのレシピメモの直後に、配膳許可を示す4バイトの値が置かれている。グローバル領域の境界を越えて承認値を書き換え、制御フローを変えずに秘密のスープを取り出そう。",
+  "description": "24バイトのレシピメモの直後に、配膳許可を示す4バイトの値が置かれている。グローバル領域の境界を越えて承認値を書き換え、制御フローを変えずに秘密のスープを取り出そう。",
+  "topic": "global buffer overflow / non-control-data attack / authorization bypass",
+  "level": 2,
+  "points": 50,
+  "arch": "amd64",
+  "mitigations": "NX / Stack Canary / PIE / Full RELRO / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/bss-borscht.tar.gz",
+  "flagHash": "c1fb8a9a79a3f88049f76eb1f352ca862acc147253f6c1e9a8d05ddf95f98651"
 }
 ]
