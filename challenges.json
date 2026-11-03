@@ -195,5 +195,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/bss-borscht.tar.gz",
   "flagHash": "c1fb8a9a79a3f88049f76eb1f352ca862acc147253f6c1e9a8d05ddf95f98651"
+},
+{
+  "id": "abi-arancini",
+  "number": 41,
+  "date": "2026-11-04",
+  "title": "ABI Arancini",
+  "subtitle": "seccompはネイティブのopen/openatを止めているが、syscall番号だけを見てアーキテクチャを検証していない。スタック上書きでROPを組み、i386のint 0x80 ABIから秘密のレシピを読み出そう。",
+  "description": "seccompはネイティブのopen/openatを止めているが、syscall番号だけを見てアーキテクチャを検証していない。スタック上書きでROPを組み、i386のint 0x80 ABIから秘密のレシピを読み出そう。",
+  "topic": "seccomp architecture confusion / i386 int 0x80 syscall bypass / ROP",
+  "level": 4,
+  "points": 100,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE / Seccomp",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/abi-arancini.tar.gz",
+  "flagHash": "eccea8d2b796327f141e5d1a0e61546d6d3979724ac5666936ab87db9e276cc5"
 }
 ]
