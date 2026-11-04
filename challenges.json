@@ -213,5 +213,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/abi-arancini.tar.gz",
   "flagHash": "eccea8d2b796327f141e5d1a0e61546d6d3979724ac5666936ab87db9e276cc5"
+},
+{
+  "id": "partial-pita",
+  "number": 42,
+  "date": "2026-11-05",
+  "title": "Partial Pita",
+  "subtitle": "ピタの注文票が、戻り先の下位2バイトだけ上書きできる。PIEの位置は隠れたまま、同じメモリ領域にある秘密の配膳関数へ戻ろう。",
+  "description": "ピタの注文票が、戻り先の下位2バイトだけ上書きできる。PIEの位置は隠れたまま、同じメモリ領域にある秘密の配膳関数へ戻ろう。",
+  "topic": "16-bit partial saved-RIP overwrite / PIE ASLR ret2win",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / PIE / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/partial-pita.tar.gz",
+  "flagHash": "459b80ecda2fbd74e0d4a42c64dc70f77d332bb6f255045a643d780b5375fb5f"
 }
 ]
