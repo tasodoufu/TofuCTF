@@ -232,4 +232,23 @@
   "download": "downloads/partial-pita.tar.gz",
   "flagHash": "459b80ecda2fbd74e0d4a42c64dc70f77d332bb6f255045a643d780b5375fb5f"
 }
+,
+{
+  "id": "stack-mignon",
+  "number": 43,
+  "date": "2026-11-06",
+  "title": "Stack Mignon",
+  "subtitle": "ビーフの注文票は72バイトで保存した戻り先まで届く。AMD64の関数入口に必要なスタック境界を確かめ、retガジェットで8バイト調整して隠しメニューを呼び出そう。",
+  "description": "ビーフの注文票は72バイトで保存した戻り先まで届く。AMD64の関数入口に必要なスタック境界を確かめ、retガジェットで8バイト調整して隠しメニューを呼び出そう。",
+  "topic": "SysV AMD64 stack alignment / ROP ret-shim alignment",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/stack-mignon.tar.gz",
+  "flagHash": "82b99c7cc44332e2cbc2e9f65dcb8ed80552496996fc6faaf030005f96683f63"
+}
 ]
