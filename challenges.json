@@ -250,5 +250,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/stack-mignon.tar.gz",
   "flagHash": "82b99c7cc44332e2cbc2e9f65dcb8ed80552496996fc6faaf030005f96683f63"
+},
+{
+  "id": "rax-ratatouille",
+  "number": 44,
+  "date": "2026-11-07",
+  "title": "RAX Ratatouille",
+  "subtitle": "ラタトゥイユの注文票は、読み込み後に隠し配膳関数のアドレスをRAXへ残す。長すぎる入力で保存先を上書きし、jmp raxへ戻ってレジスタ内の行き先を使おう。",
+  "description": "ラタトゥイユの注文票は、読み込み後に隠し配膳関数のアドレスをRAXへ残す。長すぎる入力で保存先を上書きし、jmp raxへ戻ってレジスタ内の行き先を使おう。",
+  "topic": "ret2reg / RAX-controlled indirect branch / stack overflow",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/rax-ratatouille.tar.gz",
+  "flagHash": "b074a06882212f896535416a087ac187ca5da085ab801470db16f697cd21dbe4"
 }
 ]
