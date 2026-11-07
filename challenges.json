@@ -268,5 +268,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/rax-ratatouille.tar.gz",
   "flagHash": "b074a06882212f896535416a087ac187ca5da085ab801470db16f697cd21dbe4"
+},
+{
+  "id": "heap-overflow-halloumi",
+  "number": 45,
+  "date": "2026-11-08",
+  "title": "Heap Overflow Halloumi",
+  "subtitle": "ハルーミのバッチ数に8を掛けた値が16ビットへ切り詰められ、実際の確保サイズだけが小さくなる。読み込みは元の長さで続くため、隣接するヒープ上の配膳コールバックを書き換えて秘密のレシピを呼び出そう。",
+  "description": "ハルーミのバッチ数に8を掛けた値が16ビットへ切り詰められ、実際の確保サイズだけが小さくなる。読み込みは元の長さで続くため、隣接するヒープ上の配膳コールバックを書き換えて秘密のレシピを呼び出そう。",
+  "topic": "16-bit multiplication overflow / undersized heap allocation / adjacent heap callback overwrite",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/heap-overflow-halloumi.tar.gz",
+  "flagHash": "247b4a1908e3a210bf0062bd77d2048be7c43ee9db72573bbf8fcc0a60814096"
 }
 ]
