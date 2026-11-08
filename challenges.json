@@ -286,5 +286,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/heap-overflow-halloumi.tar.gz",
   "flagHash": "247b4a1908e3a210bf0062bd77d2048be7c43ee9db72573bbf8fcc0a60814096"
+},
+{
+  "id": "seventh-arg-arepa",
+  "number": 46,
+  "date": "2026-11-09",
+  "title": "Seventh-Arg Arepa",
+  "subtitle": "AMD64では整数引数のうち最初の6個はレジスタ、7個目はスタックから渡される。長すぎる注文票で戻り先とスタック引数を整え、秘密の一皿を呼び出そう。",
+  "description": "AMD64では整数引数のうち最初の6個はレジスタ、7個目はスタックから渡される。長すぎる注文票で戻り先とスタック引数を整え、秘密の一皿を呼び出そう。",
+  "topic": "SysV AMD64 stack-passed 7th argument / ret2win",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/seventh-arg-arepa.tar.gz",
+  "flagHash": "4b06e0a97b743e6f8dc23ff302a557f647b304c362195de66742cb59bad83f70"
 }
 ]
