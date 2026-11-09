@@ -304,5 +304,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/seventh-arg-arepa.tar.gz",
   "flagHash": "4b06e0a97b743e6f8dc23ff302a557f647b304c362195de66742cb59bad83f70"
+},
+{
+  "id": "nul-byte-nachos",
+  "number": 47,
+  "date": "2026-11-10",
+  "title": "NUL-Byte Nachos",
+  "subtitle": "ナチョスの注文カードは、埋め込みNULより後ろを長さ検査で見落とす。それでもコピー処理は受信したバイト数を使うため、隠れた余分のカードで秘密のメニューへ戻ろう。",
+  "description": "ナチョスの注文カードは、埋め込みNULより後ろを長さ検査で見落とす。それでもコピー処理は受信したバイト数を使うため、隠れた余分のカードで秘密のメニューへ戻ろう。",
+  "topic": "raw byte-count / C-string length mismatch / embedded-NUL validation bypass / stack overflow / ret2win",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/nul-byte-nachos.tar.gz",
+  "flagHash": "0b2499aa11b5af0d5f71601112286b9d769930d6c4bb6e1a2712db4024d733b1"
 }
 ]
