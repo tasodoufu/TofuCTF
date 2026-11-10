@@ -322,5 +322,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/nul-byte-nachos.tar.gz",
   "flagHash": "0b2499aa11b5af0d5f71601112286b9d769930d6c4bb6e1a2712db4024d733b1"
+},
+{
+  "id": "variadic-vada",
+  "number": 48,
+  "date": "2026-11-11",
+  "title": "Variadic Vada",
+  "subtitle": "ヴァダの注文票には長すぎるレシピが届く。AMD64の可変長引数ABIではALが浮動小数点引数に使うベクトルレジスタ数を示す。整数だけの呼び出しに必要なAL=0と、RSI上の追加引数をROPで整え、秘密の一皿へ進もう。",
+  "description": "ヴァダの注文票には長すぎるレシピが届く。AMD64の可変長引数ABIではALが浮動小数点引数に使うベクトルレジスタ数を示す。整数だけの呼び出しに必要なAL=0と、RSI上の追加引数をROPで整え、秘密の一皿へ進もう。",
+  "topic": "SysV AMD64 variadic-call ABI / AL vector-argument count / ROP",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/variadic-vada.tar.gz",
+  "flagHash": "68d8d7f7307c3a85b5f47457e87a44c3dbd6f8eb6484fd344e55a1f838db03e7"
 }
 ]
