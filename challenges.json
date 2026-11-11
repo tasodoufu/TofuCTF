@@ -340,5 +340,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/variadic-vada.tar.gz",
   "flagHash": "68d8d7f7307c3a85b5f47457e87a44c3dbd6f8eb6484fd344e55a1f838db03e7"
+},
+{
+  "id": "buffered-biscotti",
+  "number": 49,
+  "date": "2026-11-12",
+  "title": "Buffered Biscotti",
+  "subtitle": "名前入力にはfgetsを使う一方、次のレシピカードはreadで直接読む。stdioの先読みで入力がずれる点に注意し、段階を分けた長いカードで戻り先を書き換えて秘密のレシピを取り出そう。",
+  "description": "名前入力にはfgetsを使う一方、次のレシピカードはreadで直接読む。stdioの先読みで入力がずれる点に注意し、段階を分けた長いカードで戻り先を書き換えて秘密のレシピを取り出そう。",
+  "topic": "stdio/raw-read desynchronization / fgets read-ahead / stack overflow / ret2win",
+  "level": 2,
+  "points": 50,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/buffered-biscotti.tar.gz",
+  "flagHash": "10178e5465c9b41af5bbd95bc66711d1220c8175051ef641dcf8a3971062231a"
 }
 ]
