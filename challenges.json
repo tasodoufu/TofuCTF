@@ -358,5 +358,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/buffered-biscotti.tar.gz",
   "flagHash": "10178e5465c9b41af5bbd95bc66711d1220c8175051ef641dcf8a3971062231a"
+},
+{
+  "id": "overread-pavlova",
+  "number": 50,
+  "date": "2026-11-13",
+  "title": "Overread Pavlova",
+  "subtitle": "パヴロヴァの試食係は64バイトのカードから80バイトを印刷し、保存された戻り先までうっかり見せてしまう。漏れたPIEアドレスで配置を計算し、2枚目の長いレシピカードから隠しメニューへ戻ろう。",
+  "description": "パヴロヴァの試食係は64バイトのカードから80バイトを印刷し、保存された戻り先までうっかり見せてしまう。漏れたPIEアドレスで配置を計算し、2枚目の長いレシピカードから隠しメニューへ戻ろう。",
+  "topic": "linear stack overread / PIE return-address disclosure / stack overflow / ret2win",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / PIE / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/overread-pavlova.tar.gz",
+  "flagHash": "940ebfb78fbb6a7bc7c9a956d7264cd7b9dc6b1a7a0845580542b5cf43aedddf"
 }
 ]
