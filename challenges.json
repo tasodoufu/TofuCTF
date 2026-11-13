@@ -376,5 +376,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/overread-pavlova.tar.gz",
   "flagHash": "940ebfb78fbb6a7bc7c9a956d7264cd7b9dc6b1a7a0845580542b5cf43aedddf"
+},
+{
+  "id": "stale-stack-strudel",
+  "number": 51,
+  "date": "2026-11-14",
+  "title": "Stale-Stack Strudel",
+  "subtitle": "前の注文処理が返った後も、スタックのチケット欄には値が残っている。未初期化のローカル変数から漏れた値を使い回し、秘密のレシピを受け取ろう。",
+  "description": "前の注文処理が返った後も、スタックのチケット欄には値が残っている。未初期化のローカル変数から漏れた値を使い回し、秘密のレシピを受け取ろう。",
+  "topic": "uninitialized stack read / stale stack-slot disclosure / authorization bypass",
+  "level": 2,
+  "points": 50,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/stale-stack-strudel.tar.gz",
+  "flagHash": "f4952f218b261fe41ef471ad578c86ad87a6f8407db60564152388c960664dc1"
 }
 ]
