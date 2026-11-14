@@ -394,5 +394,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/stale-stack-strudel.tar.gz",
   "flagHash": "f4952f218b261fe41ef471ad578c86ad87a6f8407db60564152388c960664dc1"
+},
+{
+  "id": "scanf-spanakopita",
+  "number": 52,
+  "date": "2026-11-15",
+  "title": "Scanf Spanakopita",
+  "subtitle": "スパナコピタの注文票は32ビット整数を読むはずなのに、64ビットの配膳先へ書き込んでしまう。scanfの書式と保存先の幅の違いを突き、隠されたレシピへ配膳を切り替えよう。",
+  "description": "スパナコピタの注文票は32ビット整数を読むはずなのに、64ビットの配膳先へ書き込んでしまう。scanfの書式と保存先の幅の違いを突き、隠されたレシピへ配膳を切り替えよう。",
+  "topic": "scanf destination-width mismatch / partial function-pointer overwrite",
+  "level": 2,
+  "points": 50,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/scanf-spanakopita.tar.gz",
+  "flagHash": "4da9dc2a151d6e0b0740a17fb2d0870c1d1b5389b513f9888bebb5e837c5b13d"
 }
 ]
