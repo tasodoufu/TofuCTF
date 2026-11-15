@@ -412,5 +412,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/scanf-spanakopita.tar.gz",
   "flagHash": "4da9dc2a151d6e0b0740a17fb2d0870c1d1b5389b513f9888bebb5e837c5b13d"
+},
+{
+  "id": "wide-wonton",
+  "number": 53,
+  "date": "2026-11-16",
+  "title": "Wide Wonton",
+  "subtitle": "ワンタンの注文ラベルはバイト数で寸法を渡しているが、UTF-8からwchar_tへの変換は文字要素数として解釈する。単位の食い違いから隣の承認値を書き換え、秘密のレシピを解放しよう。",
+  "description": "ワンタンの注文ラベルはバイト数で寸法を渡しているが、UTF-8からwchar_tへの変換は文字要素数として解釈する。単位の食い違いから隣の承認値を書き換え、秘密のレシピを解放しよう。",
+  "topic": "wide-character element-count vs byte-size confusion / wchar_t buffer overflow / adjacent authorization overwrite",
+  "level": 2,
+  "points": 50,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/wide-wonton.tar.gz",
+  "flagHash": "b99ce18d8f4f4302f3a13f094724c71b60f76c34391c09812cdf6db62862fd38"
 }
 ]
