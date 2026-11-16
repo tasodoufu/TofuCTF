@@ -430,5 +430,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/wide-wonton.tar.gz",
   "flagHash": "b99ce18d8f4f4302f3a13f094724c71b60f76c34391c09812cdf6db62862fd38"
+},
+{
+  "id": "shift-chai",
+  "number": 54,
+  "date": "2026-11-17",
+  "title": "Shift-Chai",
+  "subtitle": "チャイの封印は、指定されたビット位置だけを残すはずだった。境界値の指定でCPUのシフト量処理を誤解させ、秘密の一杯を解放しよう。",
+  "description": "チャイの封印は、指定されたビット位置だけを残すはずだった。境界値の指定でCPUのシフト量処理を誤解させ、秘密の一杯を解放しよう。",
+  "topic": "x86 shift-count masking / off-by-one range check / authorization bypass",
+  "level": 2,
+  "points": 50,
+  "arch": "amd64",
+  "mitigations": "NX / Stack Canary / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/shift-chai.tar.gz",
+  "flagHash": "e4c15a50ac249dc2fb966b388f86b2b40ee285e802a327486874013f338de035"
 }
 ]
