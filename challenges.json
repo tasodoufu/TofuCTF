@@ -448,5 +448,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/shift-chai.tar.gz",
   "flagHash": "e4c15a50ac249dc2fb966b388f86b2b40ee285e802a327486874013f338de035"
+},
+{
+  "id": "struct-stuffed-sarmale",
+  "number": 55,
+  "date": "2026-11-18",
+  "title": "Struct-Stuffed Sarmale",
+  "subtitle": "24バイトのメモを受け付けるはずのサルマーレ注文窓口は、入力に注文票構造体全体のサイズを使ってしまう。隣接する承認フィールドだけを更新し、制御フローを変えずに秘密のレシピを解放しよう。",
+  "description": "24バイトのメモを受け付けるはずのサルマーレ注文窓口は、入力に注文票構造体全体のサイズを使ってしまう。隣接する承認フィールドだけを更新し、制御フローを変えずに秘密のレシピを解放しよう。",
+  "topic": "aggregate-size input / intra-struct authorization overwrite / data-only attack",
+  "level": 2,
+  "points": 50,
+  "arch": "amd64",
+  "mitigations": "NX / Stack Canary / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/struct-stuffed-sarmale.tar.gz",
+  "flagHash": "0c60ee13778821092bf31d5fc137d1cc75bf133bc70ca231cea080b55dbc8c41"
 }
 ]
