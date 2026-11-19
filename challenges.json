@@ -484,5 +484,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/endian-eclair.tar.gz",
   "flagHash": "f640b7367acda346500a57a481a09423d67b0cf67c35a63b3d8e5829c3f8b85f"
+},
+{
+  "id": "gadget-gyoza",
+  "number": 57,
+  "date": "2026-11-20",
+  "title": "Gadget Gyoza",
+  "subtitle": "餃子の配膳台は、長い注文票を受け付ける。複数レジスタをpopするガジェットの余分な消費まで数え、スタック境界を整えて秘密の餃子を呼び出そう。",
+  "description": "餃子の配膳台は、長い注文票を受け付ける。複数レジスタをpopするガジェットの余分な消費まで数え、スタック境界を整えて秘密の餃子を呼び出そう。",
+  "topic": "ROP / multi-pop gadget side effects / AMD64 stack alignment",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/gadget-gyoza.tar.gz",
+  "flagHash": "bf0838735bb12d8a74b35a426ce305c1d195807d4ddc094431eb99773d2e2bb6"
 }
 ]
