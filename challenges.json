@@ -502,5 +502,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/gadget-gyoza.tar.gz",
   "flagHash": "bf0838735bb12d8a74b35a426ce305c1d195807d4ddc094431eb99773d2e2bb6"
+},
+{
+  "id": "realloc-roti",
+  "number": 58,
+  "date": "2026-11-21",
+  "title": "Realloc Roti",
+  "subtitle": "ロティのレシピ帳は、realloc後も古いポインタを捨て忘れている。解放された領域が配膳コールバックに再利用された瞬間を利用し、秘密の一皿へ差し替えよう。",
+  "description": "ロティのレシピ帳は、realloc後も古いポインタを捨て忘れている。解放された領域が配膳コールバックに再利用された瞬間を利用し、秘密の一皿へ差し替えよう。",
+  "topic": "use-after-realloc / stale heap pointer / reused allocation / callback hijack",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/realloc-roti.tar.gz",
+  "flagHash": "0827f2e4c75dfbad033d59d01e8e7d20c8f577d4e3b8536516930b2423568241"
 }
 ]
