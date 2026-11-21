@@ -520,5 +520,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/realloc-roti.tar.gz",
   "flagHash": "0827f2e4c75dfbad033d59d01e8e7d20c8f577d4e3b8536516930b2423568241"
+},
+{
+  "id": "signed-shakshuka",
+  "number": 59,
+  "date": "2026-11-22",
+  "title": "Signed Shakshuka",
+  "subtitle": "注文窓口は符号付き16ビットの長さをメモ欄の上限と比べるが、負数は拒否されない。uint16_tを経てsize_tへ変換すると、読み込み量がメモ欄を超えて隣の承認値まで届く。制御フローを変えずに秘密のレシピを解放しよう。",
+  "description": "注文窓口は符号付き16ビットの長さをメモ欄の上限と比べるが、負数は拒否されない。uint16_tを経てsize_tへ変換すると、読み込み量がメモ欄を超えて隣の承認値まで届く。制御フローを変えずに秘密のレシピを解放しよう。",
+  "topic": "signed-to-unsigned conversion / oversized read / intra-struct authorization overwrite",
+  "level": 2,
+  "points": 50,
+  "arch": "amd64",
+  "mitigations": "NX / Stack Canary / Full RELRO / PIE / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/signed-shakshuka.tar.gz",
+  "flagHash": "c2ab28015eebfce118f7b8004bff01a8302c0a22518e2627441f42ce9c575d2c"
 }
 ]
