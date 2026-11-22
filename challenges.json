@@ -538,5 +538,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/signed-shakshuka.tar.gz",
   "flagHash": "c2ab28015eebfce118f7b8004bff01a8302c0a22518e2627441f42ce9c575d2c"
-}
+},
+  {
+    "id": "shadow-space-shortbread",
+    "number": 60,
+    "date": "2026-11-23",
+    "title": "Shadow-Space Shortbread",
+    "subtitle": "ショートブレッドの注文票は保存された戻り先まで上書きできる。Linux上のamd64 ELFなのに、隠し配膳関数はMicrosoft x64 ABIを使う。RCXの第1引数、呼び出し側が確保する32バイトのshadow space、そして関数入口のスタック境界を整えて秘密のレシピへ進もう。",
+    "description": "ショートブレッドの注文票は保存された戻り先まで上書きできる。Linux上のamd64 ELFなのに、隠し配膳関数はMicrosoft x64 ABIを使う。RCXの第1引数、呼び出し側が確保する32バイトのshadow space、そして関数入口のスタック境界を整えて秘密のレシピへ進もう。",
+    "topic": "Microsoft x64 calling convention / RCX argument / 32-byte shadow space / ROP",
+    "level": 3,
+    "points": 75,
+    "arch": "amd64",
+    "mitigations": "NX / Full RELRO / No PIE",
+    "host": "127.0.0.1",
+    "port": 31337,
+    "command": "nc 127.0.0.1 31337",
+    "download": "downloads/shadow-space-shortbread.tar.gz",
+    "flagHash": "f02b8404238568497e7d78dd00cdaada1c3322fd42dda79035b369652cc40c1a"
+  }
 ]
