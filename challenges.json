@@ -574,5 +574,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/signed-size-souvlaki.tar.gz",
   "flagHash": "87fecfb46f4c1d0bf43e6b3ab094d3819978a97b3a869fab461e875063e1d9b9"
+},
+{
+  "id": "prev-in-use-poutine",
+  "number": 62,
+  "date": "2026-11-25",
+  "title": "Prev-in-Use Poutine",
+  "subtitle": "大きな注文カードの末尾が、次のヒープチャンクのサイズに届く。off-by-nullでPREV_INUSEを落とし、偽の前チャンクとsafe unlinkの相互リンク検査を組み立てて後方統合を誘発し、承認ゲートを更新しよう。",
+  "description": "大きな注文カードの末尾が、次のヒープチャンクのサイズに届く。off-by-nullでPREV_INUSEを落とし、偽の前チャンクとsafe unlinkの相互リンク検査を組み立てて後方統合を誘発し、承認ゲートを更新しよう。",
+  "topic": "House of Einherjar / off-by-null / backward consolidation / safe unlink",
+  "level": 5,
+  "points": 125,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE / ASLR",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/prev-in-use-poutine.tar.gz",
+  "flagHash": "4402abcb8b87f885581674096fdcff3b9b6289b4d4742a0d9e54a0356c39f46b"
 }
 ]
