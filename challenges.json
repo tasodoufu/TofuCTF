@@ -556,5 +556,23 @@
     "command": "nc 127.0.0.1 31337",
     "download": "downloads/shadow-space-shortbread.tar.gz",
     "flagHash": "f02b8404238568497e7d78dd00cdaada1c3322fd42dda79035b369652cc40c1a"
-  }
+  },
+{
+  "id": "signed-size-souvlaki",
+  "number": 61,
+  "date": "2026-11-24",
+  "title": "Signed-Size Souvlaki",
+  "subtitle": "スブラキの注文窓口は正の長さだけを検査する。負の符号付き値がsize_tへ変換される隙を突き、長い注文票から保存された戻り先を書き換えて秘密のグリルへ進もう。",
+  "description": "スブラキの注文窓口は正の長さだけを検査する。負の符号付き値がsize_tへ変換される隙を突き、長い注文票から保存された戻り先を書き換えて秘密のグリルへ進もう。",
+  "topic": "signed-to-unsigned length conversion / stack buffer overflow / ret2win",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/signed-size-souvlaki.tar.gz",
+  "flagHash": "87fecfb46f4c1d0bf43e6b3ab094d3819978a97b3a869fab461e875063e1d9b9"
+}
 ]
