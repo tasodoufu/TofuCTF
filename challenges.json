@@ -592,5 +592,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/prev-in-use-poutine.tar.gz",
   "flagHash": "4402abcb8b87f885581674096fdcff3b9b6289b4d4742a0d9e54a0356c39f46b"
+},
+{
+  "id": "alloca-alfajor",
+  "number": 63,
+  "date": "2026-11-26",
+  "title": "Alloca Alfajor",
+  "subtitle": "容量を指定してallocaでスタック上にカードを確保するが、読み込み側は常に128バイト。動的確保のサイズと実際の入力長のずれを突き、保存された戻り先を隠しフィリングへ向けよう。",
+  "description": "容量を指定してallocaでスタック上にカードを確保するが、読み込み側は常に128バイト。動的確保のサイズと実際の入力長のずれを突き、保存された戻り先を隠しフィリングへ向けよう。",
+  "topic": "alloca size mismatch / dynamic stack-buffer overflow / ret2win",
+  "level": 3,
+  "points": 75,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/alloca-alfajor.tar.gz",
+  "flagHash": "4460173695f3657627cec610b8df56b797fbcebf9cfe01410b232c139baab6d7"
 }
 ]
