@@ -628,5 +628,23 @@
   "command": "nc 127.0.0.1 31337",
   "download": "downloads/readv-risotto.tar.gz",
   "flagHash": "427512de898023803ac594099ee7bfcd3c9b49824145df16dd4659d919b57e00"
+},
+{
+  "id": "frame-tamale",
+  "number": 65,
+  "date": "2026-11-28",
+  "title": "Frame Tamale",
+  "subtitle": "タマーレの注文窓口は、保存されたRBPを書き換えられる。偽のフレームを用意し、leave; retでスタックを.bssへ移して秘密の具材を取り出そう。",
+  "description": "タマーレの注文窓口は、保存されたRBPを書き換えられる。偽のフレームを用意し、leave; retでスタックを.bssへ移して秘密の具材を取り出そう。",
+  "topic": "saved-RBP overwrite / fake stack frame / leave; ret stack pivot",
+  "level": 4,
+  "points": 100,
+  "arch": "amd64",
+  "mitigations": "NX / Full RELRO / No PIE",
+  "host": "127.0.0.1",
+  "port": 31337,
+  "command": "nc 127.0.0.1 31337",
+  "download": "downloads/frame-tamale.tar.gz",
+  "flagHash": "85e1c437b8b2fdeec5626a8e72857395e3ac23db030485b0d279bc34cc835aaf"
 }
 ]
